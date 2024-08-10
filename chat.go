@@ -175,6 +175,12 @@ type FunctionCall struct {
 
 type ChatCompletionResponseFormatType string
 
+type ChatCompletionResponseFormatJSONSchemaRaw []byte
+
+func (schema ChatCompletionResponseFormatJSONSchemaRaw) MarshalJSON() ([]byte, error) {
+	return schema, nil
+}
+
 const (
 	ChatCompletionResponseFormatTypeJSONObject ChatCompletionResponseFormatType = "json_object"
 	ChatCompletionResponseFormatTypeJSONSchema ChatCompletionResponseFormatType = "json_schema"
@@ -182,8 +188,8 @@ const (
 )
 
 type ChatCompletionResponseFormat struct {
-	Type       ChatCompletionResponseFormatType        `json:"type,omitempty"`
-	JSONSchema *ChatCompletionResponseFormatJSONSchema `json:"json_schema,omitempty"`
+	Type       ChatCompletionResponseFormatType           `json:"type,omitempty"`
+	JSONSchema *ChatCompletionResponseFormatJSONSchemaRaw `json:"json_schema,omitempty"`
 }
 
 type ChatCompletionResponseFormatJSONSchema struct {
